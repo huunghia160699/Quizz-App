@@ -555,3 +555,4 @@ const quizApp = {
 
 // Khởi chạy ứng dụng
 quizApp.start();
+// updated
