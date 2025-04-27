@@ -237,7 +237,7 @@ const quizApp = {
             }
 
             // Tùy chọn: Xáo trộn allQuestion ở đây nếu muốn chọn ngẫu nhiên
-            // this.allQuestion = this.shuffleArray([...this.allQuestion]).slice(0, this.maxQuestion);
+            this.allQuestion = this.shuffleArray([...this.allQuestion]).slice(0, this.maxQuestion);
 
             // Lấy số lượng câu hỏi đã chọn (nếu không xáo trộn thì lấy từ đầu danh sách)
             this.allQuestion = this.allQuestion.slice(0, this.maxQuestion);
