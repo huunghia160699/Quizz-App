@@ -151,7 +151,7 @@ const quizApp = {
         $("#wrap").classList.add("active"); // Kích hoạt container chính
 
         // Chuyển sang màn hình chọn số lượng câu hỏi
-        this.loadPartialHTML("../html/selection.html", "wrap");
+        this.loadPartialHTML("./html/selection.html", "wrap");
       } else {
         console.error("Không tìm thấy dữ liệu quiz hợp lệ trong file đã chọn.");
         alert(
@@ -244,7 +244,7 @@ const quizApp = {
 
             // Chuyển sang màn hình câu hỏi
             // questionSelectionElement.remove(); // Xóa màn hình chọn câu hỏi
-            this.loadPartialHTML("../html/question.html", "wrap"); // Load màn hình câu hỏi
+            this.loadPartialHTML("./html/question.html", "wrap"); // Load màn hình câu hỏi
           };
         }
 
@@ -478,7 +478,7 @@ const quizApp = {
 
   // Hàm load màn hình kết quả (Giữ nguyên)
   loadResult() {
-    this.loadPartialHTML("../html/result.html", "wrap");
+    this.loadPartialHTML("./html/result.html", "wrap");
   },
 
   // --- Hàm xử lý nút "Câu tiếp theo" / "Làm lại" ---
@@ -503,7 +503,7 @@ const quizApp = {
       this.correctedCount = 0;
       this.allQuestion = null; // Xóa dữ liệu câu hỏi đã tải
       // Tải lại màn hình input file ban đầu
-      this.loadPartialHTML("../html/file-input.html", "wrap");
+      this.loadPartialHTML("./html/file-input.html", "wrap");
       $("#wrap").classList.remove("active");
       event.target.textContent = "Tiếp theo";
       event.target.classList.add("hidden");
@@ -526,7 +526,7 @@ const quizApp = {
     // Chờ DOM load xong rồi mới bắt đầu tải màn hình đầu tiên
     document.addEventListener("DOMContentLoaded", () => {
       // Tải màn hình input file ban đầu vào container #wrap
-      this.loadPartialHTML("../html/file-input.html", "wrap");
+      this.loadPartialHTML("./html/file-input.html", "wrap");
       // Listener cho nút next/làm lại sẽ được gắn sau khi #next-button được load vào DOM
     });
     // Các listener phụ có thể gắn ở đây hoặc trong loadPartialHTML
