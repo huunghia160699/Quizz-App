@@ -1,0 +1,118 @@
+@import url("../css/wrap.css");
+@import url("../css/question.css");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Maven Pro", serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  user-select: none;
+}
+:root {
+  --main-color: #00796b;
+  --sub-color: rgba(0, 121, 107, 0.3);
+  --ft-main-color: invert(15%) sepia(88%) saturate(5086%) hue-rotate(170deg)
+    brightness(97%) contrast(101%);
+  --ft-white: invert(100%) sepia(37%) saturate(3848%) hue-rotate(203deg)
+    brightness(124%) contrast(108%);
+}
+body {
+  background-color: #e0f7fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  font-size: 2vh;
+}
+#quiz-container {
+  background: var(--main-color);
+  height: 100%;
+  max-width: 500px;
+  width: 500px;
+  padding: 0 1vw;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1vh;
+  position: relative;
+}
+.header {
+  height: 7vh;
+  gap: 1vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header button {
+  /* background-color: var(--ft-main-color); */
+  border: none;
+  outline: none;
+  /* filter: var(--ft-white); */
+  height: 5vh;
+  width: 5vh;
+  cursor: pointer;
+}
+.header button:active {
+  opacity: 0.9;
+}
+
+.footer {
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+/* Styling chung cho các icon Font Awesome */
+.fas {
+  font-size: 24px; /* Kích thước icon */
+  color: #333; /* Màu sắc icon */
+  margin-right: 10px; /* Khoảng cách nếu có nhiều icon */
+  cursor: pointer; /* Biến con trỏ thành bàn tay khi rê chuột */
+  /* Thêm các style khác nếu cần */
+}
+
+/* Styling riêng cho từng icon nếu muốn */
+.fa-arrow-left {
+  /* Các style riêng cho icon back */
+}
+
+.fa-cog {
+  /* Các style riêng cho icon setting */
+  transition: transform 0.3s ease; /* Hiệu ứng xoay khi hover */
+}
+
+.fa-cog:hover {
+  transform: rotate(90deg); /* Xoay khi hover */
+}
+#next-button {
+  height: 80%;
+  width: 40%;
+  background-color: white;
+  color: var(--main-color);
+  border: none;
+  border-radius: 0.3vh;
+  cursor: pointer;
+  font-size: 3vh;
+  padding: 0 1vh;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  /* text-align: left; */
+  font-weight: 600;
+  transition: 0.2s linear;
+}
+#next-button:hover {
+  background-color: #eee;
+}
+#next-button:active {
+  background-color: var(--main-color);
+}
+.footer span.hidden,
+#next-button.hidden {
+  opacity: 0;
+  visibility: hidden;
+}

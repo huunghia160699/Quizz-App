@@ -1,0 +1,131 @@
+#wrap {
+  background-color: #edfdff;
+  /* padding: 1vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+  position: absolute;
+  inset: 1vh;
+  transition: top 0.3s linear, bottom 0.3s linear;
+}
+#wrap.active {
+  inset: 7vh 0;
+}
+
+#file-input-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-color);
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5vh;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1em;
+  font-weight: bold;
+}
+#file-input {
+  opacity: 0;
+  width: 100px;
+  position: absolute;
+  visibility: hidden;
+}
+
+/* !question selection */
+#question-selection {
+  border-radius: 1vh;
+  background-color: var(--main-color);
+  text-align: center;
+  box-shadow: 0 0 0 1vh var(--sub-color);
+  width: 40%;
+  aspect-ratio: 4/3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#question-selection.hidden {
+  display: none;
+}
+
+#question-selection p {
+  margin-bottom: 1vh;
+  font-weight: bold;
+  font-size: larger;
+  color: white;
+}
+
+#question-selection-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5vh;
+  background-color: white;
+  width: 60%;
+  height: 5vh;
+  font-size: 3vh;
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+#question-selection-input span {
+  display: flex;
+  height: 100%;
+  flex: 2;
+  cursor: pointer;
+  font-size: 1.2em;
+  align-items: center;
+  justify-content: center;
+}
+
+#question-selection-input span:hover {
+  background-color: #ddd;
+}
+#question-selection-input span:active {
+  background-color: var(--sub-color);
+}
+
+#question-selection-input input[type="number"] {
+  width: 100%;
+  flex: 3;
+  height: 100%;
+  text-align: center;
+  border: none;
+  outline: none;
+  font-size: 3vh;
+  color: var(--main-color);
+  font-weight: bold;
+}
+#question-selection-input input[type="number"]::-webkit-outer-spin-button,
+#question-selection-input input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#question-selection button#start-button {
+  padding: 1.5vh 3vw;
+  font-weight: bold;
+  background-color: white;
+  color: var(--main-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+#question-selection button#start-button:hover {
+  background-color: #ddd;
+}
+#question-selection button#start-button:active {
+  background-color: var(--sub-color);
+}
+
+#question-selection button#start-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Example focus shadow */
+}
