@@ -172,7 +172,26 @@ const quizApp = {
       fileInput.value = "";
     };
   },
+// --- Hàm trộn mảng (Fisher-Yates shuffle) ---
+  shuffleArray(array) {
+    let currentIndex = array.length;
+    let randomIndex;
 
+    // While there remain elements to shuffle.
+    while (currentIndex !== 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  },
   // --- Hàm loadPartialHTML (Điều chỉnh lại các listener gắn sau khi load) ---
   async loadPartialHTML(url, targetId) {
     try {
