@@ -3,16 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap"
       rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <title>Ứng dụng Quiz</title>
   </head>
@@ -21,13 +17,57 @@
       <div class="header">
         <h2>Ứng dụng Quiz</h2>
       </div>
-      <div id="wrap"></div>
+      <div id="wrap">
+        <label for="file-input" id="file-input-label">
+          <h1>Quizz App</h1>
+          <span>(Chọn tệp)</span>
+          <input id="file-input" type="file" accept=".txt" />
+        </label>
+
+        <div id="question-selection" class="hidden">
+          <p>Chọn số câu hỏi:</p>
+          <div id="question-selection-input">
+            <span id="des">&#8722;</span>
+            <input
+              title="number of questions"
+              type="number"
+              data-min="1"
+              data-max=""
+              value=""
+            />
+            <span id="ins">&#43;</span>
+          </div>
+          <button title="start" type="button" id="start-button">Bắt đầu</button>
+        </div>
+
+        <div id="question-container" class="hidden">
+          <span id="question-counter-display">Câu 1/20</span>
+          <p id="question-content"></p>
+          <div id="options-container"></div>
+        </div>
+
+        <div id="result" class="hidden">
+          <span>Số câu đúng</span>
+          <span id="score-display">0/0</span>
+          <div id="result-options">
+            <button id="restart-full-button">Làm lại toàn bộ</button>
+            <button id="restart-incorrect-button">Làm lại câu sai</button>
+            <button id="choose-new-file-button">Chọn file mới</button>
+          </div>
+        </div>
+      </div>
+
       <div class="footer">
-        <button title="next button" id="next-button" class="hidden">
+        <button
+          title="next question"
+          type="button"
+          id="next-button"
+          class="hidden"
+        >
           Tiếp theo
         </button>
       </div>
     </div>
-    <script src="./js/main.js"></script>
+    <script src="./main.js"></script>
   </body>
 </html>
