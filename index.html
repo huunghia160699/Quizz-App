@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <title>Ứng dụng Quiz - Đọc file Word</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap"
       rel="stylesheet"
     />
-    <title>Ứng dụng Quiz</title>
+    
+    <!-- Link đến file CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Thư viện Mammoth.js từ CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.7.1/mammoth.browser.min.js"></script>
   </head>
   <body>
     <div id="quiz-container">
@@ -18,12 +25,17 @@
         <h2>Ứng dụng Quiz</h2>
       </div>
       <div id="wrap">
+        <!-- Màn hình 1: Chọn File -->
         <label for="file-input" id="file-input-label">
-          <h1>Quizz App</h1>
-          <span>(Chọn tệp)</span>
-          <input id="file-input" type="file" accept=".txt" />
+          <h1>Quiz App</h1>
+          <span>(Nhấn để chọn file .docx)</span>
+          <input id="file-input" type="file" accept=".docx" />
         </label>
 
+        <!-- Loader khi xử lý file -->
+        <div id="loader" class="hidden">Đang xử lý file Word...</div>
+
+        <!-- Màn hình 2: Chọn số câu hỏi -->
         <div id="question-selection" class="hidden">
           <p>Chọn số câu hỏi:</p>
           <div id="question-selection-input">
@@ -40,12 +52,16 @@
           <button title="start" type="button" id="start-button">Bắt đầu</button>
         </div>
 
+        <!-- Màn hình 3: Hiển thị câu hỏi -->
         <div id="question-container" class="hidden">
           <span id="question-counter-display">Câu 1/20</span>
           <p id="question-content"></p>
-          <div id="options-container"></div>
+          <div id="options-container">
+            <!-- Các lựa chọn sẽ được JS chèn vào đây -->
+          </div>
         </div>
 
+        <!-- Màn hình 4: Kết quả -->
         <div id="result" class="hidden">
           <span>Số câu đúng</span>
           <span id="score-display">0/0</span>
@@ -56,7 +72,7 @@
           </div>
         </div>
       </div>
-
+      
       <div class="footer">
         <button
           title="next question"
@@ -68,6 +84,8 @@
         </button>
       </div>
     </div>
-    <script src="./main.js"></script>
+
+    <!-- Link đến file JavaScript -->
+    <script src="script.js"></script>
   </body>
 </html>
