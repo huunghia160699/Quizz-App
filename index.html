@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ứng dụng Quiz - Đọc file Word</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap"
       rel="stylesheet"
     />
-    
+
     <!-- Link đến file CSS -->
     <link rel="stylesheet" href="style.css" />
 
@@ -21,9 +21,6 @@
   </head>
   <body>
     <div id="quiz-container">
-      <div class="header">
-        <h2>Ứng dụng Quiz</h2>
-      </div>
       <div id="wrap">
         <!-- Màn hình 1: Chọn File -->
         <label for="file-input" id="file-input-label">
@@ -60,7 +57,16 @@
             <!-- Các lựa chọn sẽ được JS chèn vào đây -->
           </div>
         </div>
-
+        <div class="footer">
+          <button
+            title="next question"
+            type="button"
+            id="next-button"
+            class="hidden"
+          >
+            Tiếp theo
+          </button>
+        </div>
         <!-- Màn hình 4: Kết quả -->
         <div id="result" class="hidden">
           <span>Số câu đúng</span>
@@ -71,17 +77,6 @@
             <button id="choose-new-file-button">Chọn file mới</button>
           </div>
         </div>
-      </div>
-      
-      <div class="footer">
-        <button
-          title="next question"
-          type="button"
-          id="next-button"
-          class="hidden"
-        >
-          Tiếp theo
-        </button>
       </div>
     </div>
 
