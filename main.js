@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Sử dụng regex để tách các khối câu hỏi, linh hoạt với nhiều dấu gạch
       const questionBlocks = text.split(/\+{5,}/);
 
-      questionBlocks.forEach((block) => {
+      questionBlocks.forEach((block, idx) => {
         const lines = block
           .trim()
           .split("\n")
@@ -85,9 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
         lines.forEach((line) => {
           if (line.match(/^Câu\s*\d+[:.]?\s*/i)) {
             question.text = line.replace(/^Câu\s*\d+[:.]?\s*/i, "").trim();
-          } else if (line.match(/^[A-Z]\.\s/)) {
+          } else if (line.match(/^[A-Z]\./)) {
             const optionLetter = line[0];
-            const optionText = line.substring(line.indexOf(".") + 1).trim();
+            // Lấy nội dung sau dấu chấm, loại bỏ dấu cách nếu có
+            let optionText = line.substring(line.indexOf(".") + 1);
+            if (optionText[0] === " ") optionText = optionText.substring(1);
+            optionText = optionText.trim();
             question.options[optionLetter] = optionText;
           } else if (line.match(/^Đáp\sán\s*:/i)) {
             const answerLetter = line
@@ -110,6 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
           question.correctAnswer
         ) {
           parsedData.push(question);
+        } else {
+          console.log(`Câu hỏi lỗi ở block ${idx + 1}:`, block);
         }
       });
       return parsedData;
