@@ -69,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     parseQuizText(text) {
       const parsedData = [];
-      // Sử dụng regex để tách các khối câu hỏi, linh hoạt với nhiều dấu gạch
       const questionBlocks = text.split(/\+{5,}/);
 
       questionBlocks.forEach((block, idx) => {
@@ -80,29 +79,35 @@ document.addEventListener("DOMContentLoaded", () => {
           .filter((line) => line);
         if (lines.length < 2) return;
 
-        // Parse
         const question = { text: "", options: [], correctAnswer: null };
         let answerLetter = null;
+
         lines.forEach((line) => {
           if (line.match(/^Câu\s*\d+[:.]?\s*/i)) {
             question.text = line.replace(/^Câu\s*\d+[:.]?\s*/i, "").trim();
           } else if (line.match(/^[A-Z]\./)) {
-            let optionText = line.substring(line.indexOf(".") + 1);
-            if (optionText[0] === " ") optionText = optionText.substring(1);
-            optionText = optionText.trim();
+            // Xử lý lựa chọn: bỏ phần chữ cái và dấu chấm, trim kỹ
+            const optionText = line.substring(line.indexOf(".") + 1).trim();
             question.options.push(optionText);
           } else if (line.match(/^Đáp\sán\s*:/i)) {
+            // Lấy ký tự đáp án đúng
             answerLetter = line
               .substring(line.indexOf(":") + 1)
               .trim()
               .toUpperCase();
           }
         });
-        // Lưu đáp án đúng theo nội dung
-        if (answerLetter && question.options.length > 0 && question.text) {
-          const letterIdx = "ABCD".indexOf(answerLetter);
-          if (letterIdx >= 0 && letterIdx < question.options.length) {
-            question.correctAnswer = question.options[letterIdx];
+
+        // Lưu đáp án đúng theo nội dung, không lấy trực tiếp từ dòng Đáp án
+        if (
+          question.text &&
+          question.options.length > 0 &&
+          answerLetter &&
+          "ABCD".includes(answerLetter)
+        ) {
+          const idxCorrect = "ABCD".indexOf(answerLetter);
+          if (idxCorrect >= 0 && idxCorrect < question.options.length) {
+            question.correctAnswer = question.options[idxCorrect];
             parsedData.push(question);
           } else {
             console.log(`Câu hỏi lỗi ở block ${idx + 1}:`, block);
@@ -212,39 +217,44 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       this.ui.optionsContainer.innerHTML = "";
 
-      // Xáo trộn nội dung đáp án, ký tự ABCD giữ nguyên vị trí
-      const optionLetters = ["A", "B", "C", "D"].filter(
-        (l) => l in question.options
-      );
-      const optionContents = optionLetters.map((l) => question.options[l]);
-      const shuffledContents = this.shuffleArray([...optionContents]);
-      optionLetters.forEach((letter, idx) => {
+      // Trộn nội dung đáp án, render lại ABCD
+      const shuffledOptions = this.shuffleArray([...question.options]);
+      shuffledOptions.forEach((optionText, idx) => {
+        const letter = "ABCD"[idx];
         const optionButton = document.createElement("button");
         optionButton.className = "option";
-        optionButton.dataset.option = letter;
-        optionButton.innerHTML = `<span>${letter}</span> <p>${shuffledContents[idx]}</p>`;
-        optionButton.onclick = () => this.selectOption(optionButton, letter);
+        optionButton.dataset.optionText = optionText;
+        optionButton.innerHTML = `<span>${letter}</span> <p>${optionText}</p>`;
+        optionButton.onclick = () =>
+          this.selectOption(optionButton, optionText);
         this.ui.optionsContainer.appendChild(optionButton);
       });
 
       this.ui.nextButton.classList.add("hidden");
     },
 
-    selectOption(selectedButton, selectedOptionText) {
+    selectOption(selectedButton, selectedLetter) {
       const question = this.quizQuestions[this.currentQuestionIndex];
-      const correctText = question.correctAnswer;
+      const correctLetter = question.correctAnswer;
       const allOptionButtons = $$(".option");
 
       allOptionButtons.forEach((btn) => (btn.disabled = true));
 
-      if (selectedOptionText === correctText) {
+      if (selectedLetter === correctLetter) {
         selectedButton.classList.add("correct");
         this.correctCount++;
       } else {
-        selectedButton.classList.add("incorrect");
+        // Hiển thị cả đáp án sai và đáp án đúng
+        allOptionButtons.forEach((btn) => {
+          if (btn === selectedButton) {
+            btn.classList.add("incorrect");
+          } else if (
+            btn.dataset.optionText.trim() === question.correctAnswer.trim()
+          ) {
+            btn.classList.add("correct");
+          }
+        });
         this.incorrectlyAnswered.push(question);
-        const correctButton = $(`button[data-option="${correctText}"]`);
-        if (correctButton) correctButton.classList.add("correct");
       }
 
       allOptionButtons.forEach((btn) => {
