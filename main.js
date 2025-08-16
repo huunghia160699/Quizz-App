@@ -80,39 +80,33 @@ document.addEventListener("DOMContentLoaded", () => {
           .filter((line) => line);
         if (lines.length < 2) return;
 
-        const question = { text: "", options: {}, correctAnswer: null };
-
+        // Parse
+        const question = { text: "", options: [], correctAnswer: null };
+        let answerLetter = null;
         lines.forEach((line) => {
           if (line.match(/^Câu\s*\d+[:.]?\s*/i)) {
             question.text = line.replace(/^Câu\s*\d+[:.]?\s*/i, "").trim();
           } else if (line.match(/^[A-Z]\./)) {
-            const optionLetter = line[0];
-            // Lấy nội dung sau dấu chấm, loại bỏ dấu cách nếu có
             let optionText = line.substring(line.indexOf(".") + 1);
             if (optionText[0] === " ") optionText = optionText.substring(1);
             optionText = optionText.trim();
-            question.options[optionLetter] = optionText;
+            question.options.push(optionText);
           } else if (line.match(/^Đáp\sán\s*:/i)) {
-            const answerLetter = line
+            answerLetter = line
               .substring(line.indexOf(":") + 1)
               .trim()
               .toUpperCase();
-            if (
-              answerLetter.length === 1 &&
-              answerLetter >= "A" &&
-              answerLetter <= "Z"
-            ) {
-              question.correctAnswer = answerLetter;
-            }
           }
         });
-
-        if (
-          question.text &&
-          Object.keys(question.options).length > 0 &&
-          question.correctAnswer
-        ) {
-          parsedData.push(question);
+        // Lưu đáp án đúng theo nội dung
+        if (answerLetter && question.options.length > 0 && question.text) {
+          const letterIdx = "ABCD".indexOf(answerLetter);
+          if (letterIdx >= 0 && letterIdx < question.options.length) {
+            question.correctAnswer = question.options[letterIdx];
+            parsedData.push(question);
+          } else {
+            console.log(`Câu hỏi lỗi ở block ${idx + 1}:`, block);
+          }
         } else {
           console.log(`Câu hỏi lỗi ở block ${idx + 1}:`, block);
         }
@@ -236,20 +230,20 @@ document.addEventListener("DOMContentLoaded", () => {
       this.ui.nextButton.classList.add("hidden");
     },
 
-    selectOption(selectedButton, selectedLetter) {
+    selectOption(selectedButton, selectedOptionText) {
       const question = this.quizQuestions[this.currentQuestionIndex];
-      const correctLetter = question.correctAnswer;
+      const correctText = question.correctAnswer;
       const allOptionButtons = $$(".option");
 
       allOptionButtons.forEach((btn) => (btn.disabled = true));
 
-      if (selectedLetter === correctLetter) {
+      if (selectedOptionText === correctText) {
         selectedButton.classList.add("correct");
         this.correctCount++;
       } else {
         selectedButton.classList.add("incorrect");
         this.incorrectlyAnswered.push(question);
-        const correctButton = $(`button[data-option="${correctLetter}"]`);
+        const correctButton = $(`button[data-option="${correctText}"]`);
         if (correctButton) correctButton.classList.add("correct");
       }
 
